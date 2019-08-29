@@ -1,0 +1,41 @@
+/* Page styles */
+
+body,
+h1,
+h2,
+h3,
+p,
+td,
+quote,
+small,
+form,
+input,
+ul,
+li,
+ol,
+label {
+  margin: 0px;
+  padding: 0px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+  color: #444444;
+  font-size: 14px;
+  direction: rtl;
+  text-align: right;
+}
+
+.clear {
+  clear: both;
+}
+
+a,
+a:visited {
+  text-decoration: none;
+  outline: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}

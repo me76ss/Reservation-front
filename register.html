@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+          integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  <title>Login</title>
+  <link rel="stylesheet" href="css/shared.css">
+  <link rel="stylesheet" href="css/login.css">
+</head>
+
+<body>
+  <div class="container">
+
+    <div class="login-form">
+      <form id="register-form">
+
+        <div class="form-group">
+          <label for="exampleInputFirstName">نام</label>
+          <input type="text" class="form-control" id="exampleInputFirstName" aria-describedby="emailHelp" placeholder="نام خود را وارد کنید"
+                 name="first_name">
+        </div>
+        <div class="form-group">
+          <label for="exampleInputLastenam">نام خانوادگی</label>
+          <input type="text" class="form-control" id="exampleInputLastenam" aria-describedby="emailHelp"
+                 placeholder="نام خانوادگی خود را وارد کنید" name="last_name">
+        </div>
+
+        <div class="form-group">
+          <label for="exampleInputusername1">نام کاربری</label>
+          <input type="text" class="form-control" id="exampleInputusername1" aria-describedby="emailHelp"
+                 placeholder="نام کاربری خود را وارد کنید" name="username">
+        </div>
+        <div class="form-group">
+          <label for="exampleInputPassword1">رمز عبور</label>
+          <input type="password" class="form-control" id="exampleInputPassword1" placeholder="رمز عبور خود را وارد کنید" name="password">
+        </div>
+        <div class="form-group">
+          <label for="exampleInputEmail1">ایمیل</label>
+          <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="ایمیل خود را وارد کنید"
+                 name="email">
+        </div>
+        <button type="submit" class="btn btn-primary">ثبت نام</button>
+      </form>
+    </div>
+
+    <div class="text-center">
+      <a href="/login.html">ورود</a>
+    </div>
+  </div>
+
+  <script type="text/javascript" src="js/login.js"></script>
+</body>
+
+</html>
