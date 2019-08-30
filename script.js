@@ -126,50 +126,29 @@ function getProgramList() {
       //   $('#loading').css('visibility', 'hidden');
       // }
       msg.forEach(r => {
-        getProgramSlots(r);
+        var slots = msg.slots.reduce((result, slot) => {
+          return `${result}<div class="slot">
+          ظرفیت: ${slot.capacity} <br>
+          رزرو شده: ${slot.reserve} <br>
+          شروع: ${slot.starts_at} <br>
+          پایان: ${slot.ends_at} <br>
+          <button onclick="onReserve(${r.id}, ${slot.id})">رزرو</button>
+        </div>`;
+        }, '');
+
+        var html = `<div class="program">
+          <h3>${r.name}</h3>
+          <div>
+            شروع: ${r.starts_at} <br>
+            پایان: ${r.ends_at}
+          </div>
+          <div class="p-slots">${slots}</div>
+        </div>`;
+
+        var div = document.createElement('div');
+        div.innerHTML = html;
+        $('.programs').append(div);
       });
-    }
-  });
-}
-
-function getProgramSlots(r) {
-  $.ajax({
-    type: 'GET',
-    url: `${BASE_URL}/programs/${r.id}`,
-    // data: 'page=' + url,
-    // dataType: 'html',
-    headers: { Authorization: `token ${token}` },
-    success: function(msg) {
-      console.log('TCL: getProgramSlots -> msg', msg);
-      // console.log('TCL: getPanelData -> msg', msg);
-      // console.log('TCL: loadPage -> msg', msg);
-      // if (parseInt(msg) != 0) {
-      // $('#pageContent').html(msg);
-      //   $('#loading').css('visibility', 'hidden');
-      // }
-
-      var slots = msg.slots.reduce((result, slot) => {
-        return `${result}<div class="slot">
-        ظرفیت: ${slot.capacity} <br>
-        رزرو شده: ${slot.reserve} <br>
-        شروع: ${slot.starts_at} <br>
-				پایان: ${slot.ends_at} <br>
-				<button onclick="onReserve(${r.id}, ${slot.id})">رزرو</button>
-      </div>`;
-      }, '');
-
-      var html = `<div class="program">
-				<h3>${r.name}</h3>
-				<div>
-					شروع: ${r.starts_at} <br>
-					پایان: ${r.ends_at}
-				</div>
-				<div class="p-slots">${slots}</div>
-			</div>`;
-
-      var div = document.createElement('div');
-      div.innerHTML = html;
-      $('.programs').append(div);
     }
   });
 }
