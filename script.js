@@ -82,7 +82,8 @@ function getReservedList() {
 
       msg.forEach(r => {
         var slot = r.slot;
-        var html = `<div class="reserved">
+        var participatedPassed = !r.participated && new Date(slot.starts_at).getTime() <= Date.now();
+        var html = `<div class="reserved ${participatedPassed ? 'slot-passed' : ''}">
 				<h3>${slot.program.name}</h3>
 				<div>
 					شروع: ${slot.program.starts_at} <br>

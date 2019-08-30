@@ -35,6 +35,9 @@ You are free to use the following demo code for any purpose you see fit.
   padding: 10px;
   border: 2px solid #32b100;
 }
+.reserved.slot-passed {
+  border-color: #ff0000;
+}
 
 .program {
   margin: 15px 0;
