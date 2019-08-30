@@ -115,7 +115,7 @@ function getProgramList() {
 
   $.ajax({
     type: 'GET',
-    url: `${BASE_URL}/programs`,
+    url: `${BASE_URL}/programs/`,
     // data: 'page=' + url,
     // dataType: 'html',
     headers: { Authorization: `token ${token}` },
