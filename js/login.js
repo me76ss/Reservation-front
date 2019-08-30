@@ -41,6 +41,9 @@ function login(data) {
       console.log('TCL: loadPage -> msg', msg);
       localStorage.setItem('token', msg.token);
       location.href = '/';
+    },
+    error: function(xhr, ajaxOptions, thrownError) {
+      alert(`Error status: ${xhr.status}, Message: ${thrownError}`);
     }
   });
 }
@@ -57,6 +60,9 @@ function register(data) {
       console.log('TCL: loadPage -> msg', msg);
       // localStorage.setItem('token', msg.token);
       location.href = '/login.html';
+    },
+    error: function(xhr, ajaxOptions, thrownError) {
+      alert(`Error status: ${xhr.status}, Message: ${thrownError}`);
     }
   });
 }

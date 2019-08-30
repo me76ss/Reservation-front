@@ -149,6 +149,9 @@ function getProgramList() {
         div.innerHTML = html;
         $('.programs').append(div);
       });
+    },
+    error: function(xhr, ajaxOptions, thrownError) {
+      alert(`Error status: ${xhr.status}, Message: ${thrownError}`);
     }
   });
 }
@@ -195,6 +198,9 @@ function getProfile() {
       var div = document.createElement('div');
       div.innerHTML = html;
       $('.profile-c').append(div);
+    },
+    error: function(xhr, ajaxOptions, thrownError) {
+      alert(`Error status: ${xhr.status}, Message: ${thrownError}`);
     }
   });
 }
@@ -208,6 +214,9 @@ function onDeleteReserve(id) {
     headers: { Authorization: `token ${token}` },
     success: function(msg) {
       location.href = '/';
+    },
+    error: function(xhr, ajaxOptions, thrownError) {
+      alert(`Error status: ${xhr.status}, Message: ${thrownError}`);
     }
   });
 }
@@ -221,6 +230,9 @@ function onReserve(pid, sid) {
     headers: { Authorization: `token ${token}` },
     success: function(msg) {
       location.href = '/';
+    },
+    error: function(xhr, ajaxOptions, thrownError) {
+      alert(`Error status: ${xhr.status}, Message: ${thrownError}`);
     }
   });
 }
@@ -235,6 +247,9 @@ function logout() {
     success: function(msg) {
       localStorage.clear();
       location.href = '/login.html';
+    },
+    error: function(xhr, ajaxOptions, thrownError) {
+      alert(`Error status: ${xhr.status}, Message: ${thrownError}`);
     }
   });
 }
