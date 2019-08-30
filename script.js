@@ -88,7 +88,7 @@ function getReservedList() {
 					شروع: ${slot.program.starts_at} <br>
 					پایان: ${slot.program.ends_at}
 				</div>
-				<h6>اسلات رزرو شده</h6>
+				<h6>${r.type === 'WAITING' ? 'در لیست انتظار' : 'اسلات رزرو شده'}</h6>
 				<div>
 					شروع: ${slot.starts_at} <br>
 					پایان: ${slot.ends_at}
