@@ -127,7 +127,7 @@ function getProgramList() {
       //   $('#loading').css('visibility', 'hidden');
       // }
       msg.forEach(r => {
-        var slots = msg.slots.reduce((result, slot) => {
+        var slots = r.slots.reduce((result, slot) => {
           return `${result}<div class="slot">
           ظرفیت: ${slot.capacity} <br>
           رزرو شده: ${slot.reserve} <br>
