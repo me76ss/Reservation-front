@@ -93,7 +93,7 @@ function getReservedList() {
 				<div>
 					شروع: ${slot.starts_at} <br>
 					پایان: ${slot.ends_at}
-					<button onclick="onDeleteReserve(${r.id})">حذف رزرو</button>
+					<button class="btn" onclick="onDeleteReserve(${r.id})">حذف رزرو</button>
 				</div>
 			</div>`;
 
@@ -133,7 +133,7 @@ function getProgramList() {
           رزرو شده: ${slot.reserve} <br>
           شروع: ${slot.starts_at} <br>
           پایان: ${slot.ends_at} <br>
-          <button onclick="onReserve(${r.id}, ${slot.id})">رزرو</button>
+          <button class="btn" onclick="onReserve(${r.id}, ${slot.id})">رزرو</button>
         </div>`;
         }, '');
 
