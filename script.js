@@ -134,7 +134,7 @@ function getProgramList() {
             r.queueable
               ? `رزرو شده: ${slot.reserve} <br>
           در انتتظار: ${slot.waiting} <br>`
-              : 'این برنامه لیست انتظار ندارد'
+              : 'این برنامه لیست انتظار ندارد <br>'
           }
           شروع: ${new Date(slot.starts_at).toLocaleDateString()} <br>
           پایان: ${new Date(slot.ends_at).toLocaleDateString()} <br>
