@@ -86,13 +86,13 @@ function getReservedList() {
         var html = `<div class="reserved ${participatedPassed ? 'slot-passed' : ''}">
 				<h3>${slot.program.name}</h3>
 				<div>
-					شروع: ${slot.program.starts_at} <br>
-					پایان: ${slot.program.ends_at}
+					شروع: ${new Date(slot.program.starts_at).toLocaleDateString()} <br>
+					پایان: ${new Date(slot.program.ends_at).toLocaleDateString()}
 				</div>
 				<h6>${r.type === 'WAITING' ? 'در لیست انتظار' : 'اسلات رزرو شده'}</h6>
 				<div>
-					شروع: ${slot.starts_at} <br>
-					پایان: ${slot.ends_at}
+					شروع: ${new Date(slot.starts_at).toLocaleDateString()} <br>
+					پایان: ${new Date(slot.ends_at).toLocaleDateString()}
 <div class="mt-2">					<button class="btn btn-danger" onclick="onDeleteReserve(${r.id})">حذف رزرو</button> </div>
 				</div>
 			</div>`;
@@ -130,9 +130,14 @@ function getProgramList() {
         var slots = r.slots.reduce((result, slot) => {
           return `${result}<div class="slot">
           ظرفیت: ${slot.capacity} <br>
-          رزرو شده: ${slot.reserve} <br>
-          شروع: ${slot.starts_at} <br>
-          پایان: ${slot.ends_at} <br>
+          ${
+            r.queueable
+              ? `رزرو شده: ${slot.reserve} <br>
+          در انتتظار: ${slot.waiting} <br>`
+              : 'این برنامه لیست انتظار ندارد'
+          }
+          شروع: ${new Date(slot.starts_at).toLocaleDateString()} <br>
+          پایان: ${new Date(slot.ends_at).toLocaleDateString()} <br>
 <div class="mt-2">          <button class="btn btn-primary" onclick="onReserve(${r.id}, ${slot.id})">رزرو</button> </div>
         </div>`;
         }, '');
@@ -140,8 +145,8 @@ function getProgramList() {
         var html = `<div class="program">
           <h3>${r.name}</h3>
           <div>
-            شروع: ${r.starts_at} <br>
-            پایان: ${r.ends_at}
+            شروع: ${new Date(r.starts_at).toLocaleDateString()} <br>
+            پایان: ${new Date(r.ends_at).toLocaleDateString()} <br>
           </div>
           <div class="p-slots">${slots}</div>
         </div>`;
