@@ -131,7 +131,7 @@ function getProgramList() {
           return `${result}<div class="slot">
           ظرفیت: ${slot.capacity} <br>
           رزرو شده: ${slot.reserve} <br>
-          ${r.queueable ? `در انتتظار: ${slot.waiting} <br>` : 'این برنامه لیست انتظار ندارد <br>'}
+          ${r.queueable ? `در انتتظار: ${slot.waiting} <br>` : ''}
           شروع: ${new Date(slot.starts_at).toLocaleString()} <br>
           پایان: ${new Date(slot.ends_at).toLocaleString()} <br>
 <div class="mt-2">          <button class="btn btn-primary" onclick="onReserve(${r.id}, ${slot.id})">رزرو</button> </div>
@@ -144,6 +144,7 @@ function getProgramList() {
             شروع: ${new Date(r.starts_at).toLocaleString()} <br>
             پایان: ${new Date(r.ends_at).toLocaleString()} <br>
           </div>
+          <div>این برنامه لیست انتظار ندارد</div>
           <div class="p-slots">${slots}</div>
         </div>`;
 
