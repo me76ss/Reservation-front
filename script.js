@@ -130,12 +130,8 @@ function getProgramList() {
         var slots = r.slots.reduce((result, slot) => {
           return `${result}<div class="slot">
           ظرفیت: ${slot.capacity} <br>
-          ${
-            r.queueable
-              ? `رزرو شده: ${slot.reserve} <br>
-          در انتتظار: ${slot.waiting} <br>`
-              : 'این برنامه لیست انتظار ندارد <br>'
-          }
+          رزرو شده: ${slot.reserve} <br>
+          ${r.queueable ? `در انتتظار: ${slot.waiting} <br>` : 'این برنامه لیست انتظار ندارد <br>'}
           شروع: ${new Date(slot.starts_at).toLocaleTimeString()} <br>
           پایان: ${new Date(slot.ends_at).toLocaleTimeString()} <br>
 <div class="mt-2">          <button class="btn btn-primary" onclick="onReserve(${r.id}, ${slot.id})">رزرو</button> </div>
