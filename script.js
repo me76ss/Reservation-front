@@ -86,13 +86,13 @@ function getReservedList() {
         var html = `<div class="reserved ${participatedPassed ? 'slot-passed' : ''}">
 				<h3>${slot.program.name}</h3>
 				<div>
-					شروع: ${new Date(slot.program.starts_at).toLocaleTimeString()} <br>
-					پایان: ${new Date(slot.program.ends_at).toLocaleTimeString()}
+					شروع: ${new Date(slot.program.starts_at).toLocaleString()} <br>
+					پایان: ${new Date(slot.program.ends_at).toLocaleString()}
 				</div>
 				<h6>${r.type === 'WAITING' ? 'در لیست انتظار' : 'اسلات رزرو شده'}</h6>
 				<div>
-					شروع: ${new Date(slot.starts_at).toLocaleTimeString()} <br>
-					پایان: ${new Date(slot.ends_at).toLocaleTimeString()}
+					شروع: ${new Date(slot.starts_at).toLocaleString()} <br>
+					پایان: ${new Date(slot.ends_at).toLocaleString()}
 <div class="mt-2">					<button class="btn btn-danger" onclick="onDeleteReserve(${r.id})">حذف رزرو</button> </div>
 				</div>
 			</div>`;
@@ -132,8 +132,8 @@ function getProgramList() {
           ظرفیت: ${slot.capacity} <br>
           رزرو شده: ${slot.reserve} <br>
           ${r.queueable ? `در انتتظار: ${slot.waiting} <br>` : 'این برنامه لیست انتظار ندارد <br>'}
-          شروع: ${new Date(slot.starts_at).toLocaleTimeString()} <br>
-          پایان: ${new Date(slot.ends_at).toLocaleTimeString()} <br>
+          شروع: ${new Date(slot.starts_at).toLocaleString()} <br>
+          پایان: ${new Date(slot.ends_at).toLocaleString()} <br>
 <div class="mt-2">          <button class="btn btn-primary" onclick="onReserve(${r.id}, ${slot.id})">رزرو</button> </div>
         </div>`;
         }, '');
@@ -141,8 +141,8 @@ function getProgramList() {
         var html = `<div class="program">
           <h3>${r.name}</h3>
           <div>
-            شروع: ${new Date(r.starts_at).toLocaleTimeString()} <br>
-            پایان: ${new Date(r.ends_at).toLocaleTimeString()} <br>
+            شروع: ${new Date(r.starts_at).toLocaleString()} <br>
+            پایان: ${new Date(r.ends_at).toLocaleString()} <br>
           </div>
           <div class="p-slots">${slots}</div>
         </div>`;
