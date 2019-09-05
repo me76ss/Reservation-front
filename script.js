@@ -1,6 +1,7 @@
 const BASE_URL = 'http://localhost:8000';
 var default_content = '';
 var token = localStorage.getItem('token');
+const JDate = require('jalali-date');
 
 $(document).ready(function() {
   if (!token) {
