@@ -86,13 +86,13 @@ function getReservedList() {
         var html = `<div class="reserved ${participatedPassed ? 'slot-passed' : ''}">
 				<h3>${slot.program.name}</h3>
 				<div>
-					شروع: ${new Date(slot.program.starts_at).toLocaleString()} <br>
-					پایان: ${new Date(slot.program.ends_at).toLocaleString()}
+					شروع: ${dateToString(slot.program.starts_at)} <br>
+					پایان: ${dateToString(slot.program.ends_at)}
 				</div>
 				<h6>${r.type === 'WAITING' ? 'در لیست انتظار' : 'اسلات رزرو شده'}</h6>
 				<div>
-					شروع: ${new Date(slot.starts_at).toLocaleString()} <br>
-					پایان: ${new Date(slot.ends_at).toLocaleString()}
+					شروع: ${dateToString(slot.starts_at)} <br>
+					پایان: ${dateToString(slot.ends_at)}
 <div class="mt-2">					<button class="btn btn-danger" onclick="onDeleteReserve(${r.id})">حذف رزرو</button> </div>
 				</div>
 			</div>`;
@@ -132,8 +132,8 @@ function getProgramList() {
           ظرفیت: ${slot.capacity} <br>
           رزرو شده: ${slot.reserve} <br>
           ${r.queueable ? `در انتتظار: ${slot.waiting} <br>` : ''}
-          شروع: ${new Date(slot.starts_at).toLocaleString()} <br>
-          پایان: ${new Date(slot.ends_at).toLocaleString()} <br>
+          شروع: ${dateToString(slot.starts_at)} <br>
+          پایان: ${dateToString(slot.ends_at)} <br>
 <div class="mt-2">          <button class="btn btn-primary" onclick="onReserve(${r.id}, ${slot.id})">رزرو</button> </div>
         </div>`;
         }, '');
@@ -141,8 +141,8 @@ function getProgramList() {
         var html = `<div class="program">
           <h3>${r.name}</h3>
           <div>
-            شروع: ${new Date(r.starts_at).toLocaleString()} <br>
-            پایان: ${new Date(r.ends_at).toLocaleString()} <br>
+            شروع: ${dateToString(r.starts_at)} <br>
+            پایان: ${dateToString(r.ends_at)} <br>
           </div>
           ${r.queueable ? '' : `<div>این برنامه لیست انتظار ندارد</div>`}
           <div class="p-slots">${slots}</div>
@@ -255,4 +255,8 @@ function logout() {
       alert(`Error status: ${xhr.status}, Message: ${thrownError}`);
     }
   });
+}
+
+function dateToString(date) {
+  return `${new JDate(new Date(date)).format('dddd DD MMMM YYYY')} - ${new Date(date).toLocaleTimeString()}`;
 }
