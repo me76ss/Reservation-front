@@ -227,7 +227,7 @@ function checkURL(hash) {
     location.href = '#page1';
     return;
   }
-  console.log('TCL: checkURL -> hash', hash, lasturl);
+  // console.log('TCL: checkURL -> hash', hash, lasturl);
   if (hash != lasturl) {
     lasturl = hash;
 
