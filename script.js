@@ -1,3 +1,22 @@
+class NgbDate {
+  /**
+   * The year, for example 2016
+   */
+  year;
+  /**
+   * The month, for example 1=Jan ... 12=Dec as in ISO 8601
+   */
+  month;
+  /**
+   * The day of month, starting with 1
+   */
+  day;
+  constructor(year, month, day) {
+    this.year = year;
+    this.month = month;
+    this.day = day;
+  }
+}
 class GregorianJalaliHelperClass {
   /**
    * Returns the equivalent jalali date value for a give input Gregorian date.
