@@ -335,7 +335,7 @@ function getProgramList() {
       });
     },
     error: function(xhr, ajaxOptions, thrownError) {
-      alert(`Error status: ${xhr.status}, Message: ${thrownError}`);
+      alert(`Error status: ${xhr.status}, Message: ${xhr.responseText}`);
     }
   });
 }
@@ -384,7 +384,7 @@ function getProfile() {
       $('.profile-c').append(div);
     },
     error: function(xhr, ajaxOptions, thrownError) {
-      alert(`Error status: ${xhr.status}, Message: ${thrownError}`);
+      alert(`Error status: ${xhr.status}, Message: ${xhr.responseText}`);
     }
   });
 }
@@ -400,7 +400,7 @@ function onDeleteReserve(id) {
       location.href = '/';
     },
     error: function(xhr, ajaxOptions, thrownError) {
-      alert(`Error status: ${xhr.status}, Message: ${thrownError}`);
+      alert(`Error status: ${xhr.status}, Message: ${xhr.responseText}`);
     }
   });
 }
@@ -416,7 +416,8 @@ function onReserve(pid, sid) {
       location.href = '/';
     },
     error: function(xhr, ajaxOptions, thrownError) {
-      alert(`Error status: ${xhr.status}, Message: ${thrownError}`);
+      console.log('TCL: onReserve -> xhr, ajaxOptions, thrownError', xhr, ajaxOptions, thrownError);
+      alert(`Error status: ${xhr.status}, Message: ${xhr.responseText}`);
     }
   });
 }
@@ -433,7 +434,7 @@ function logout() {
       location.href = '/login.html';
     },
     error: function(xhr, ajaxOptions, thrownError) {
-      alert(`Error status: ${xhr.status}, Message: ${thrownError}`);
+      alert(`Error status: ${xhr.status}, Message: ${xhr.responseText}`);
     }
   });
 }
