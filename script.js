@@ -144,7 +144,7 @@ function getProgramList() {
             شروع: ${new Date(r.starts_at).toLocaleString()} <br>
             پایان: ${new Date(r.ends_at).toLocaleString()} <br>
           </div>
-          <div>این برنامه لیست انتظار ندارد</div>
+          ${r.queueable ? '' : `<div>این برنامه لیست انتظار ندارد</div>`}
           <div class="p-slots">${slots}</div>
         </div>`;
 
