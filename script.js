@@ -1,7 +1,187 @@
+class GregorianJalaliHelperClass {
+  /**
+   * Returns the equivalent jalali date value for a give input Gregorian date.
+   * `gdate` is a JS Date to be converted to jalali.
+   * utc to local
+   */
+  fromGregorian(gdate) {
+    let g2d = this.gregorianToDay(gdate.getFullYear(), gdate.getMonth() + 1, gdate.getDate());
+    return this.dayToJalali(g2d);
+  }
+  /*
+   Converts a date of the Jalali calendar to the Julian Day number.
+   @param jy Jalali year (1 to 3100)
+   @param jm Jalali month (1 to 12)
+   @param jd Jalali day (1 to 29/31)
+   @return Julian Day number
+   */
+  gregorianToDay(gy, gm, gd) {
+    let day = div((gy + div(gm - 8, 6) + 100100) * 1461, 4) + div(153 * mod(gm + 9, 12) + 2, 5) + gd - 34840408;
+    day = day - div(div(gy + 100100 + div(gm - 8, 6), 100) * 3, 4) + 752;
+    return day;
+  }
+  /*
+   Converts the Julian Day number to a date in the Jalali calendar.
+   @param jdn Julian Day number
+   @return
+   jy: Jalali year (1 to 3100)
+   jm: Jalali month (1 to 12)
+   jd: Jalali day (1 to 29/31)
+   */
+  dayToJalali(julianDayNumber) {
+    let gy = this.dayToGregorion(julianDayNumber).getFullYear(), // Calculate Gregorian year (gy).
+      jalaliYear = gy - 621,
+      r = this.jalCal(jalaliYear),
+      gregorianDay = this.gregorianToDay(gy, 3, r.march),
+      jalaliDay,
+      jalaliMonth,
+      numberOfDays;
+    // Find number of days that passed since 1 Farvardin.
+    numberOfDays = julianDayNumber - gregorianDay;
+    if (numberOfDays >= 0) {
+      if (numberOfDays <= 185) {
+        // The first 6 months.
+        jalaliMonth = 1 + div(numberOfDays, 31);
+        jalaliDay = mod(numberOfDays, 31) + 1;
+        return new NgbDate(jalaliYear, jalaliMonth, jalaliDay);
+      } else {
+        // The remaining months.
+        numberOfDays -= 186;
+      }
+    } else {
+      // Previous Jalali year.
+      jalaliYear -= 1;
+      numberOfDays += 179;
+      if (r.leap === 1) {
+        numberOfDays += 1;
+      }
+    }
+    jalaliMonth = 7 + div(numberOfDays, 30);
+    jalaliDay = mod(numberOfDays, 30) + 1;
+    return new NgbDate(jalaliYear, jalaliMonth, jalaliDay);
+  }
+  /**
+   * Returns the equivalent JS date value for a give input Jalali date.
+   * `jalaliDate` is an Jalali date to be converted to Gregorian.
+   */
+  toGregorian(jalaliDate) {
+    const jYear = jalaliDate.year;
+    const jMonth = jalaliDate.month;
+    const jDate = jalaliDate.day;
+    let jdn = this.jalaliToDay(jYear, jMonth, jDate);
+    let date = this.dayToGregorion(jdn);
+    date.setHours(6, 30, 3, 200);
+    return date;
+  }
+  /*
+   Converts a date of the Jalali calendar to the Julian Day number.
+   @param jy Jalali year (1 to 3100)
+   @param jm Jalali month (1 to 12)
+   @param jd Jalali day (1 to 29/31)
+   @return Julian Day number
+   */
+  jalaliToDay(jYear, jMonth, jDay) {
+    let r = this.jalCal(jYear);
+    return this.gregorianToDay(r.gy, 3, r.march) + (jMonth - 1) * 31 - div(jMonth, 7) * (jMonth - 7) + jDay - 1;
+  }
+  /*
+   Calculates Gregorian and Julian calendar dates from the Julian Day number
+   (jdn) for the period since jdn=-34839655 (i.e. the year -100100 of both
+   calendars) to some millions years ahead of the present.
+   @param jdn Julian Day number
+   @return
+   gy: Calendar year (years BC numbered 0, -1, -2, ...)
+   gm: Calendar month (1 to 12)
+   gd: Calendar day of the month M (1 to 28/29/30/31)
+   */
+  dayToGregorion(julianDayNumber) {
+    let j, i, gDay, gMonth, gYear;
+    j = 4 * julianDayNumber + 139361631;
+    j = j + div(div(4 * julianDayNumber + 183187720, 146097) * 3, 4) * 4 - 3908;
+    i = div(mod(j, 1461), 4) * 5 + 308;
+    gDay = div(mod(i, 153), 5) + 1;
+    gMonth = mod(div(i, 153), 12) + 1;
+    gYear = div(j, 1461) - 100100 + div(8 - gMonth, 6);
+    return new Date(gYear, gMonth - 1, gDay);
+  }
+  /*
+   This function determines if the Jalali (Persian) year is
+   leap (366-day long) or is the common year (365 days), and
+   finds the day in March (Gregorian calendar) of the first
+   day of the Jalali year (jy).
+   @param jy Jalali calendar year (-61 to 3177)
+   @return
+   leap of years since the last leap year (0 to 4)
+   gy: Gregorian year of the beginning of Jalali year
+   march: the March day of Farvardin the 1st (1st day of jy)
+   @see: http://www.astro.uni.torun.pl/~kb/Papers/EMP/PersianC-EMP.htm
+   @see: http://www.fourmilab.ch/documents/calendar/
+   */
+  jalCal(jalaliYear) {
+    // Jalali years starting the 33-year rule.
+    let breaks = [-61, 9, 38, 199, 426, 686, 756, 818, 1111, 1181, 1210, 1635, 2060, 2097, 2192, 2262, 2324, 2394, 2456, 3178],
+      breaksLength = breaks.length,
+      gYear = jalaliYear + 621,
+      leapJ = -14,
+      jp = breaks[0],
+      jm,
+      jump,
+      leap,
+      leapG,
+      march,
+      n,
+      i;
+    if (jalaliYear < jp || jalaliYear >= breaks[breaksLength - 1]) {
+      throw new Error('Invalid Jalali year ' + jalaliYear);
+    }
+    // Find the limiting years for the Jalali year jalaliYear.
+    for (i = 1; i < breaksLength; i += 1) {
+      jm = breaks[i];
+      jump = jm - jp;
+      if (jalaliYear < jm) {
+        break;
+      }
+      leapJ = leapJ + div(jump, 33) * 8 + div(mod(jump, 33), 4);
+      jp = jm;
+    }
+    n = jalaliYear - jp;
+    // Find the number of leap years from AD 621 to the beginning
+    // of the current Jalali year in the Persian calendar.
+    leapJ = leapJ + div(n, 33) * 8 + div(mod(n, 33) + 3, 4);
+    if (mod(jump, 33) === 4 && jump - n === 4) {
+      leapJ += 1;
+    }
+    // And the same in the Gregorian calendar (until the year gYear).
+    leapG = div(gYear, 4) - div((div(gYear, 100) + 1) * 3, 4) - 150;
+    // Determine the Gregorian date of Farvardin the 1st.
+    march = 20 + leapJ - leapG;
+    // Find how many years have passed since the last leap year.
+    if (jump - n < 6) {
+      n = n - jump + div(jump + 4, 33) * 33;
+    }
+    leap = mod(mod(n + 1, 33) - 1, 4);
+    if (leap === -1) {
+      leap = 4;
+    }
+    return {
+      leap: leap,
+      gy: gYear,
+      march: march
+    };
+  }
+}
+function mod(a, b) {
+  return a - b * Math.floor(a / b);
+}
+function div(a, b) {
+  return Math.trunc(a / b);
+}
+
+const GregorianJalaliHelper = new GregorianJalaliHelperClass();
+
 const BASE_URL = 'http://localhost:8000';
 var default_content = '';
 var token = localStorage.getItem('token');
-const JDate = require('jalali-date');
 
 $(document).ready(function() {
   if (!token) {
@@ -259,5 +439,5 @@ function logout() {
 }
 
 function dateToString(date) {
-  return `${new JDate(new Date(date)).format('dddd DD MMMM YYYY')} - ${new Date(date).toLocaleTimeString()}`;
+  return `${GregorianJalaliHelper.fromGregorian(new Date(date)).format('dddd DD MMMM YYYY')} - ${new Date(date).toLocaleTimeString()}`;
 }
