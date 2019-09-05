@@ -1,22 +1,3 @@
-class NgbDate {
-  /**
-   * The year, for example 2016
-   */
-  year;
-  /**
-   * The month, for example 1=Jan ... 12=Dec as in ISO 8601
-   */
-  month;
-  /**
-   * The day of month, starting with 1
-   */
-  day;
-  constructor(year, month, day) {
-    this.year = year;
-    this.month = month;
-    this.day = day;
-  }
-}
 class GregorianJalaliHelperClass {
   /**
    * Returns the equivalent jalali date value for a give input Gregorian date.
@@ -62,7 +43,7 @@ class GregorianJalaliHelperClass {
         // The first 6 months.
         jalaliMonth = 1 + div(numberOfDays, 31);
         jalaliDay = mod(numberOfDays, 31) + 1;
-        return new NgbDate(jalaliYear, jalaliMonth, jalaliDay);
+        return { year: jalaliYear, month: jalaliMonth, day: jalaliDay };
       } else {
         // The remaining months.
         numberOfDays -= 186;
@@ -77,7 +58,7 @@ class GregorianJalaliHelperClass {
     }
     jalaliMonth = 7 + div(numberOfDays, 30);
     jalaliDay = mod(numberOfDays, 30) + 1;
-    return new NgbDate(jalaliYear, jalaliMonth, jalaliDay);
+    return { year: jalaliYear, month: jalaliMonth, day: jalaliDay };
   }
   /**
    * Returns the equivalent JS date value for a give input Jalali date.
@@ -458,5 +439,6 @@ function logout() {
 }
 
 function dateToString(date) {
-  return `${GregorianJalaliHelper.fromGregorian(new Date(date)).format('dddd DD MMMM YYYY')} - ${new Date(date).toLocaleTimeString()}`;
+  const j = GregorianJalaliHelper.fromGregorian(new Date(date));
+  return `${j.year}/${j.month}/${j.day} - ${new Date(date).toLocaleTimeString()}`;
 }
